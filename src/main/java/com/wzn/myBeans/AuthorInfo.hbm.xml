@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-1-20 20:44:12 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.wzn.myBeans.AuthorInfo" table="authorInfo">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" />
+        </property>
+        <property name="age" type="int">
+            <column name="age" />
+        </property>
+        <!-- 多对多的映射会产生第三方表   第三方表通过table来指定    在作者者使用级联 -->
+        <bag name="books" table="author_book" cascade="save-update">
+            <key>
+            	<!-- 当前AuthorInfo类在第三方表中的外键名 -->
+                <column name="a_id" />
+            </key>
+            <!-- 当前books属性的类是哪一个
+            	 这个类在第三方表中的外键名是哪个    由column指定	
+             -->
+            <many-to-many class="com.wzn.myBeans.BookInfo" column="b_id" />
+        </bag>
+    </class>
+</hibernate-mapping>

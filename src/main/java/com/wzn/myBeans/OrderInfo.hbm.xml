@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.wzn.myBeans.OrderInfo" table="orderInfo">
+        <cache usage="read-only"/>
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="goods" type="java.lang.String">
+            <column name="goods" />
+        </property>
+        <property name="price" type="int">
+            <column name="price" />
+        </property>
+        <property name="count" type="int">
+            <column name="count" />
+        </property>
+        <many-to-one name="customer" class="com.wzn.myBeans.CustomerInfo">
+            <column name="uid" />	<!-- order表与customer关联的外键名(字段名) -->
+        </many-to-one>
+    </class>
+</hibernate-mapping>
+

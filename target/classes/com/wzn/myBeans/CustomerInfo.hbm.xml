@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-1-20 19:42:45 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.wzn.myBeans.CustomerInfo" table="customerInfo" lazy="true">
+        <!-- 添加缓存应用  全局配置，当前的映射文件下的所有查询都使用 -->
+        <cache usage="read-only"/>
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="username" type="java.lang.String" not-null="true" length="10">
+            <column name="username" />
+        </property>
+        <property name="age" type="int" not-null="true" length="2">
+            <column name="age" />
+        </property>
+        <property name="sex" type="java.lang.String" length="2">
+            <column name="sex" />
+        </property>
+        <property name="money" type="int" length="2">
+            <column name="money" />
+        </property>
+        <!-- 操作数据库是进行级联    让Customer去放弃对外键的操作  就进行反转 -->
+        <bag name="orders" cascade="save-update,delete" inverse="true" >    <!-- 一对多的，多一方的集合的属性名  -->
+        	<!-- 这里要设置缓存应用   
+        		使用一个二级缓存，你必须决定，对于每一个持久类和集合设置缓存应用
+        	 -->
+        	<cache usage="read-only"/>
+        	<key column="uid" />    <!-- 关联的外键名 -->
+        	<one-to-many class="com.wzn.myBeans.OrderInfo"/>  <!-- 这个属性的类在哪里 -->
+        </bag>
+    </class>
+</hibernate-mapping>

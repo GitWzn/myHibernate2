@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-1-20 20:44:12 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.wzn.myBeans.BookInfo" table="bookInfo">
+        <id name="id" type="int" access="field">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="bookName" type="java.lang.String" access="field">
+            <column name="bookName" />
+        </property>
+        <property name="price" type="int" access="field">
+            <column name="price" />
+        </property>
+        <!-- 指定第三方表 -->
+        <bag name="authors" inverse="false" table="author_book">
+            <key>
+            	<!-- 当前BookInfo类在第三方表中的外键名 -->
+                <column name="b_id" />
+            </key>
+            <!-- 当前authors属性的类是哪个
+            	  他在第三方表中的外键名是哪个
+             -->
+            <many-to-many class="com.wzn.myBeans.AuthorInfo" column="a_id" />
+        </bag>
+    </class>
+</hibernate-mapping>
